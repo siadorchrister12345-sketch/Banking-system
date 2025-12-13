@@ -1,0 +1,14 @@
+{
+  "name": "lemsiador/bank_system",
+  "description": "final requirement for oop",
+  "type": "labactivity",
+  "require": {
+    "php": ">=7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "src\\": "src/"
+    }
+  },
+  "license": "MIT"
+}
