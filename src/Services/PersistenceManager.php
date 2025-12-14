@@ -71,9 +71,10 @@ class PersistenceManager
         
         // Remove old accounts for this user
         $allLines = array_filter($allLines, function ($line) use ($username) {
+            $line = trim($line);
             if (empty($line)) return false;
-            $parts = explode('|', $line);
-            return $parts[0] !== $username;
+            $data = json_decode($line, true);
+            return $data && $data['username'] !== $username;
         });
         
         // Add new accounts
@@ -111,10 +112,11 @@ class PersistenceManager
         $lines = file_get_contents($this->accountsFile);
         
         foreach (explode("\n", trim($lines)) as $line) {
+            $line = trim($line);
             if (empty($line)) continue;
             
             $data = json_decode($line, true);
-            if ($data['username'] === $username) {
+            if ($data && $data['username'] === $username) {
                 if ($data['type'] === 'Savings') {
                     $account = new SavingsAccount(
                         $data['accountNumber'],

@@ -22,8 +22,8 @@ if (!isset($_SESSION['username'])) {
 
 $username = $_SESSION['username'];
 $persistence = new PersistenceManager(
-    __DIR__ . '/../data/accounts.txt',
-    __DIR__ . '/../data/users.txt'
+    dirname(__DIR__) . '/data/accounts.txt',
+    dirname(__DIR__) . '/data/users.txt'
 );
 
 // Load accounts from file
@@ -39,7 +39,7 @@ $messageType = '';
 // Handle create account
 if (isset($_POST['create_account'])) {
     $type = $_POST['account_type'] ?? '';
-    $accNo = $_POST['account_number'] ?? '';
+    $accNo = trim($_POST['account_number'] ?? '');
     $balance = (float)($_POST['initial_balance'] ?? 0);
     
     if ($accNo && $balance > 0) {
@@ -61,7 +61,7 @@ if (isset($_POST['create_account'])) {
 
 // Handle deposit
 if (isset($_POST['deposit'])) {
-    $accNo = $_POST['deposit_account'] ?? '';
+    $accNo = trim($_POST['deposit_account'] ?? '');
     $amount = (float)($_POST['deposit_amount'] ?? 0);
     
     $account = $manager->getAccount($accNo);
@@ -83,7 +83,7 @@ if (isset($_POST['deposit'])) {
 
 // Handle withdraw
 if (isset($_POST['withdraw'])) {
-    $accNo = $_POST['withdraw_account'] ?? '';
+    $accNo = trim($_POST['withdraw_account'] ?? '');
     $amount = (float)($_POST['withdraw_amount'] ?? 0);
     
     $account = $manager->getAccount($accNo);
@@ -105,8 +105,8 @@ if (isset($_POST['withdraw'])) {
 
 // Handle transfer
 if (isset($_POST['transfer'])) {
-    $fromAcc = $_POST['transfer_from'] ?? '';
-    $toAcc = $_POST['transfer_to'] ?? '';
+    $fromAcc = trim($_POST['transfer_from'] ?? '');
+    $toAcc = trim($_POST['transfer_to'] ?? '');
     $amount = (float)($_POST['transfer_amount'] ?? 0);
     
     $accFrom = $manager->getAccount($fromAcc);
@@ -408,7 +408,6 @@ $accounts = $manager->listAccounts();
                     const submitBtn = form.querySelector('button[type="submit"]');
                     if (submitBtn) {
                         submitBtn.innerHTML = '⏳ Processing...';
-                        submitBtn.disabled = true;
                     }
                 });
             });

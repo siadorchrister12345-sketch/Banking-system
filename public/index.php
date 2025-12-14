@@ -5,8 +5,8 @@ require __DIR__ . '/../vendor/autoload.php';
 use src\Services\PersistenceManager;
 
 $persistence = new PersistenceManager(
-    __DIR__ . '/../data/accounts.txt',
-    __DIR__ . '/../data/users.txt'
+    dirname(__DIR__) . '/data/accounts.txt',
+    dirname(__DIR__) . '/data/users.txt'
 );
 
 // Handle logout
