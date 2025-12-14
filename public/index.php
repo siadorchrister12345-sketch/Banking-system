@@ -60,6 +60,9 @@ if (isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banking System - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -68,6 +71,7 @@ if (isset($_SESSION['username'])) {
             <!-- Login Form -->
             <div class="auth-form login-form active" id="loginForm">
                 <div class="form-header">
+                    <p>21-ITE-05, Group-2</p>
                     <h1>🏦 Banking System</h1>
                     <p>Login to your account</p>
                 </div>
@@ -98,8 +102,10 @@ if (isset($_SESSION['username'])) {
             <!-- Registration Form -->
             <div class="auth-form register-form" id="registerForm">
                 <div class="form-header">
+                    
                     <h1>🏦 Banking System</h1>
-                    <p>Create a new account</p>
+                    
+                    <p>📝 Create a new account</p>
                 </div>
                 
                 <?php if (isset($regError)): ?>

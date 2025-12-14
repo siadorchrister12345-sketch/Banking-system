@@ -137,6 +137,9 @@ $accounts = $manager->listAccounts();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banking Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -144,12 +147,15 @@ $accounts = $manager->listAccounts();
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <h1>🏦 Banking System</h1>
-                <div class="user-info">
-                    <span>Welcome, <strong><?php echo htmlspecialchars($username); ?></strong></span>
-                    <form method="POST" style="display: inline;">
-                        <button type="submit" name="logout" class="btn btn-secondary">Logout</button>
-                    </form>
+                <div class="header-left">
+                    <p>21-ITE-05, Group-2</p>
+                    <h1>🏦 Banking System</h1>
+                    <span class="welcome-desktop">Welcome, <strong><?php echo htmlspecialchars($username); ?></strong></span>
+                    <span class="welcome-mobile">Welcome, <strong><?php echo htmlspecialchars($username); ?></strong></span>
+                </div>
+                <div class="header-right">
+                    
+                    <button type="button" onclick="logout()" class="btn btn-secondary">Logout</button>
                 </div>
             </div>
         </header>
@@ -163,12 +169,19 @@ $accounts = $manager->listAccounts();
             <?php endif; ?>
 
             <!-- Navigation Tabs -->
-            <div class="tabs">
-                <button class="tab-button active" onclick="openTab('accounts')">My Accounts</button>
-                <button class="tab-button" onclick="openTab('create')">Create Account</button>
-                <button class="tab-button" onclick="openTab('deposit')">Deposit</button>
-                <button class="tab-button" onclick="openTab('withdraw')">Withdraw</button>
-                <button class="tab-button" onclick="openTab('transfer')">Transfer</button>
+            <div class="tabs-container">
+                <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <div class="tabs" id="tabs">
+                    <button class="tab-button active" onclick="openTab('accounts')">📊 My Accounts</button>
+                    <button class="tab-button" onclick="openTab('create')">➕ Create Account</button>
+                    <button class="tab-button" onclick="openTab('deposit')">💰 Deposit</button>
+                    <button class="tab-button" onclick="openTab('withdraw')">💸 Withdraw</button>
+                    <button class="tab-button" onclick="openTab('transfer')">🔄 Transfer</button>
+                </div>
             </div>
 
             <!-- Tab Contents -->
@@ -176,7 +189,7 @@ $accounts = $manager->listAccounts();
 
                 <!-- My Accounts Tab -->
                 <div id="accounts" class="tab-pane active">
-                    <h2>My Accounts</h2>
+                    <h2>📊 My Accounts</h2>
                     <?php if (count($accounts) > 0): ?>
                         <div class="accounts-grid">
                             <?php foreach ($accounts as $account): ?>
@@ -199,7 +212,7 @@ $accounts = $manager->listAccounts();
 
                 <!-- Create Account Tab -->
                 <div id="create" class="tab-pane">
-                    <h2>Create New Account</h2>
+                    <h2>➕ Create New Account</h2>
                     <form method="POST" class="form-group-full">
                         <div class="form-group">
                             <label for="account_type">Account Type</label>
@@ -225,7 +238,7 @@ $accounts = $manager->listAccounts();
 
                 <!-- Deposit Tab -->
                 <div id="deposit" class="tab-pane">
-                    <h2>Make a Deposit</h2>
+                    <h2>💰 Make a Deposit</h2>
                     <?php if (count($accounts) > 0): ?>
                         <form method="POST" class="form-group-full">
                             <div class="form-group">
@@ -254,7 +267,7 @@ $accounts = $manager->listAccounts();
 
                 <!-- Withdraw Tab -->
                 <div id="withdraw" class="tab-pane">
-                    <h2>Make a Withdrawal</h2>
+                    <h2>💸 Make a Withdrawal</h2>
                     <?php if (count($accounts) > 0): ?>
                         <form method="POST" class="form-group-full">
                             <div class="form-group">
@@ -283,7 +296,7 @@ $accounts = $manager->listAccounts();
 
                 <!-- Transfer Tab -->
                 <div id="transfer" class="tab-pane">
-                    <h2>Transfer Funds</h2>
+                    <h2>🔄 Transfer Funds</h2>
                     <?php if (count($accounts) > 1): ?>
                         <form method="POST" class="form-group-full">
                             <div class="form-group">
@@ -328,7 +341,21 @@ $accounts = $manager->listAccounts();
         </main>
     </div>
 
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Banking System. Presented by: Lem Pogi, Siador.</p>
+        </div>
+    </footer>
+
+    <!-- Hidden logout form -->
+    <form id="logoutForm" method="POST" style="display: none;">
+        <input type="hidden" name="logout" value="1">
+    </form>
+
     <script>
+        function logout() {
+            document.getElementById('logoutForm').submit();
+        }
         function openTab(tabName) {
             // Hide all tab panes
             const panes = document.querySelectorAll('.tab-pane');
@@ -341,7 +368,60 @@ $accounts = $manager->listAccounts();
             // Show selected tab and mark button as active
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
+
+            // Close mobile menu after selecting a tab
+            closeMobileMenu();
         }
+
+        function toggleMobileMenu() {
+            const tabs = document.getElementById('tabs');
+            const hamburger = document.querySelector('.hamburger-menu');
+
+            tabs.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const tabs = document.getElementById('tabs');
+            const hamburger = document.querySelector('.hamburger-menu');
+
+            tabs.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const tabs = document.getElementById('tabs');
+            const hamburger = document.querySelector('.hamburger-menu');
+            const tabsContainer = document.querySelector('.tabs-container');
+
+            if (!tabsContainer.contains(event.target) && tabs.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Add loading state to forms
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.innerHTML = '⏳ Processing...';
+                        submitBtn.disabled = true;
+                    }
+                });
+            });
+
+            // Ensure logout form works
+            const logoutForm = document.querySelector('.logout-form');
+            if (logoutForm) {
+                logoutForm.addEventListener('submit', function(e) {
+                    // Force form submission
+                    this.submit();
+                });
+            }
+        });
     </script>
 </body>
 </html>
