@@ -1,3 +1,6 @@
 {"username":"Christer Lem","type":"Savings","accountNumber":"4321","ownerName":"Christer Lem","balance":35000,"interestRate":0.02}
 {"username":"Christer Lem","type":"Savings","accountNumber":"1234","ownerName":"Christer Lem","balance":45000,"interestRate":0.02}
 {"username":"Christer Lem","type":"Savings","accountNumber":"0987","ownerName":"Christer Lem","balance":8888,"interestRate":0.02}
+{"username":"pangit","type":"Savings","accountNumber":"123","ownerName":"pangit","balance":95999,"interestRate":0.02}
+{"username":"pangit","type":"Checking","accountNumber":"321","ownerName":"pangit","balance":85888,"overdraftLimit":200}
+{"username":"pangit","type":"Savings","accountNumber":"9999","ownerName":"pangit","balance":9222,"interestRate":0.02}
